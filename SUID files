@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Define the output file
+OUTPUT_FILE="gtfobins.txt"
+
+# Find all SUID files and extract only the binary names
+find / -type f -perm -04000 -exec basename {} \; 2>/dev/null | sort -u > "$OUTPUT_FILE"
+
+# Verify the output
+if [ -s "$OUTPUT_FILE" ]; then
+  echo "SUID binary names have been written to $OUTPUT_FILE"
+else
+  echo "No SUID binaries found or an error occurred."
+fi
